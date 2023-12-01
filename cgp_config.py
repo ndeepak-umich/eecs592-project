@@ -16,10 +16,10 @@ def cnn_eval(net, gpu_id, epoch_num, batchsize, dataset, valid_data_ratio, verbo
 
     print('\tgpu_id:', gpu_id, ',', net)
     train = cnn.CNN_train(dataset, validation=True, valid_data_ratio=valid_data_ratio, verbose=verbose)
-    evaluation = train(net, gpu_id, epoch_num=epoch_num, batchsize=batchsize,
+    evaluation,l_valid = train(net, gpu_id, epoch_num=epoch_num, batchsize=batchsize,
                                comp_graph='CNN%d.dot'%(gpu_id), out_model=None, init_model=None)
     print('\tgpu_id:', gpu_id, ', eval:', evaluation)
-    return evaluation
+    return evaluation,l_valid
 
 
 class CNNEvaluation(object):
@@ -34,20 +34,22 @@ class CNNEvaluation(object):
     def __call__(self, net_lists):
         evaluations = np.zeros(len(net_lists))
 
-        print("net_lists: ")
+        validation= np.zeros(len(net_lists))
 
-        print(net_lists)
+        #print("net_lists: ")
 
+        #print(net_lists)
+        
         for i in np.arange(0, len(net_lists), self.gpu_num):
             process_num = np.min((i + self.gpu_num, len(net_lists))) - i
 
             pool = mp.Pool(process_num)
             arg_data = [(cnn_eval, net_lists[i+j], j, self.epoch_num, self.batchsize, self.dataset,
                          self.valid_data_ratio, self.verbose) for j in range(process_num)]
-            evaluations[i:i+process_num] = pool.map(arg_wrapper_mp, arg_data)
+            evaluations[i:i+process_num],validation[i:i+process_num] = pool.map(arg_wrapper_mp, arg_data)
             pool.terminate()
 
-        return evaluations
+        return evaluations,validation
 
 
 class CgpInfoConvSet(object):
