@@ -34,7 +34,7 @@ class CNNEvaluation(object):
     def __call__(self, net_lists):
         evaluations = np.zeros(len(net_lists))
 
-        validation= np.zeros(len(net_lists))
+        #validation= np.zeros(len(net_lists))
 
         #print("net_lists: ")
 
@@ -46,11 +46,10 @@ class CNNEvaluation(object):
             pool = mp.Pool(process_num)
             arg_data = [(cnn_eval, net_lists[i+j], j, self.epoch_num, self.batchsize, self.dataset,
                          self.valid_data_ratio, self.verbose) for j in range(process_num)]
-            evaluations[i:i+process_num],validation[i:i+process_num] = pool.map(arg_wrapper_mp, arg_data)
+            evaluations[i:i+process_num] = pool.map(arg_wrapper_mp, arg_data)
             pool.terminate()
 
-        return evaluations,validation
-
+        return evaluations
 
 class CgpInfoConvSet(object):
     def __init__(self, rows=30, cols=40, level_back=40, min_active_num=8, max_active_num=50):
