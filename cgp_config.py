@@ -34,6 +34,10 @@ class CNNEvaluation(object):
     def __call__(self, net_lists):
         evaluations = np.zeros(len(net_lists))
 
+        print("net_lists: ")
+
+        print(net_lists)
+
         for i in np.arange(0, len(net_lists), self.gpu_num):
             process_num = np.min((i + self.gpu_num, len(net_lists))) - i
 
