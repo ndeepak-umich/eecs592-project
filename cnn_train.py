@@ -34,6 +34,7 @@ class CNN_train():
                 self.channel = 3
                 self.pad_size = 4
                 train, test = chainer.datasets.get_cifar10(withlabel=True, ndim=3, scale=1.0)
+                
             elif dataset_name == 'cifar100':
                 self.n_class = 100
                 self.channel = 3
@@ -53,11 +54,11 @@ class CNN_train():
                 np.random.seed()
                 if self.verbose:
                     print('\tdata split order: ', order)
-                train_size = int(len(train) * (1. - valid_data_ratio))
+                train_size = int(len(train) * (1. - valid_data_ratio))//2
                 # train data
                 self.x_train, self.y_train = train[order[:train_size]][0], train[order[:train_size]][1]
                 # test data (for validation)
-                self.x_test, self.y_test = train[order[train_size:]][0], train[order[train_size:]][1]
+                self.x_test, self.y_test = train[order[train_size:train_size+2500]][0], train[order[train_size:train_size+2500]][1]
             # model test mode
             else:
                 # train data
