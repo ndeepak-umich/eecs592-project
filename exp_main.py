@@ -45,12 +45,12 @@ if __name__ == '__main__':
 
             # Evaluation function for CGP (training CNN and return validation accuracy)
             eval_f = CNNEvaluation(gpu_num=1, dataset='cifar10', valid_data_ratio=0.1, verbose=True,
-                                epoch_num=1, batchsize=128)
+                                epoch_num=10, batchsize=128)
 
             # Execute evolution
             print("Evolution started.")
             cgp = CGP(network_info, eval_f, lam=args.lam)
-            cgp.modified_evolution(max_eval=2, mutation_rate=0.05, log_file=args.log_file)
+            cgp.modified_evolution(max_eval=5, mutation_rate=0.05, log_file=args.log_file)
 
         # --- Retraining evolved architecture ---
         elif args.mode == 'retrain':
