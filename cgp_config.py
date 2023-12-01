@@ -16,10 +16,10 @@ def cnn_eval(net, gpu_id, epoch_num, batchsize, dataset, valid_data_ratio, verbo
 
     print('\tgpu_id:', gpu_id, ',', net)
     train = cnn.CNN_train(dataset, validation=True, valid_data_ratio=valid_data_ratio, verbose=verbose)
-    evaluation,l_valid = train(net, gpu_id, epoch_num=epoch_num, batchsize=batchsize,
+    evaluation = train(net, gpu_id, epoch_num=epoch_num, batchsize=batchsize,
                                comp_graph='CNN%d.dot'%(gpu_id), out_model=None, init_model=None)
     print('\tgpu_id:', gpu_id, ', eval:', evaluation)
-    return evaluation,l_valid
+    return evaluation
 
 
 class CNNEvaluation(object):
