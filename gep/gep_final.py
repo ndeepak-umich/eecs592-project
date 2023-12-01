@@ -144,6 +144,7 @@ def genetic_run(MAX_GEN, POPULATION_SIZE, GENE_LENGTH, MUTATION_PROB):
 			if (current_fitness > opt_fitness):
 				opt_fitness = current_fitness
 				opt_gene = current_gene
-	return opt_fitness, opt_gene
+	print(f"Optimal Fitness: {opt_fitness}")
+	print(f"Optimal Gene: {opt_gene}")
 
 genetic_run(MAX_GEN, POPULATION_SIZE, GENE_LENGTH, MUTATION_PROB)
