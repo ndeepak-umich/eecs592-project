@@ -149,9 +149,9 @@ class CNN_train():
 
             if epoch==epoch_num:
 
-                l_valid.append(test_accuracy / self.test_data_num)
+                print(test_accuracy / self.test_data_num)
 
-            print("Validation Accuracy added to list")
+                print("Validation Accuracy added to list")
 
             # decay the learning rate
             if not retrain_mode and epoch % 30 == 0:
@@ -169,7 +169,7 @@ class CNN_train():
             model.to_cpu()
             serializers.save_npz(out_model, model)
 
-        return np.max(test_accuracies),l_valid
+        return np.max(test_accuracies)
 
     def test(self, cgp, model_file, comp_graph='comp_graph.dot', batchsize=256):
         chainer.cuda.get_device(0).use()  # Make a specified GPU current
