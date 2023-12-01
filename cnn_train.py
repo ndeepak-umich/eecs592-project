@@ -151,6 +151,8 @@ class CNN_train():
 
                 l_valid.append(test_accuracy / self.test_data_num)
 
+            print("Validation Accuracy added to list")
+
             # decay the learning rate
             if not retrain_mode and epoch % 30 == 0:
                 optimizer.alpha *= 0.1
