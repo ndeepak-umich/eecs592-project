@@ -29,11 +29,11 @@ def Set_to_CNN(decoded_gene):
 	for element in sorted(decoded_gene):
 		if element == 'C':
 			if (not first_flag):
-				model.add(Conv2D(32, (3,3), activation='relu', input_shape=(32,32,3)))
+				model.add(Conv2D(32, (3,3), activation='relu', padding='same', input_shape=(32,32,3)))
 				model.add(MaxPooling2D((2,2)))
 				first_flag = True
 			else:
-				model.add(Conv2D(64, (3,3), activation='relu'))
+				model.add(Conv2D(64, (3,3), activation='relu', padding='same))
 				model.add(MaxPooling2D((2,2)))
 		if element == 'F':
 			if (not flatten_flag):
