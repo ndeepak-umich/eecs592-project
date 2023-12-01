@@ -44,10 +44,11 @@ if __name__ == '__main__':
                 pickle.dump(network_info, f)
 
             # Evaluation function for CGP (training CNN and return validation accuracy)
-            eval_f = CNNEvaluation(gpu_num=args.gpu_num, dataset='cifar10', valid_data_ratio=0.1, verbose=True,
+            eval_f = CNNEvaluation(gpu_num=2, dataset='cifar10', valid_data_ratio=0.1, verbose=True,
                                 epoch_num=5, batchsize=128)
 
             # Execute evolution
+            print("Evolution started.")
             cgp = CGP(network_info, eval_f, lam=args.lam)
             cgp.modified_evolution(max_eval=1000, mutation_rate=0.05, log_file=args.log_file)
 
