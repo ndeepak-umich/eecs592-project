@@ -50,7 +50,7 @@ if __name__ == '__main__':
             # Execute evolution
             print("Evolution started.")
             cgp = CGP(network_info, eval_f, lam=args.lam)
-            cgp.modified_evolution(max_eval=10, mutation_rate=0.05, log_file=args.log_file)
+            cgp.modified_evolution(max_eval=20, mutation_rate=0.05, log_file=args.log_file)
 
         # --- Retraining evolved architecture ---
         elif args.mode == 'retrain':
